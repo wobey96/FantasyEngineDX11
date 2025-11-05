@@ -1,9 +1,10 @@
-﻿# CMakeList.txt : Top-level CMake project file, do global configuration
-# and include sub-projects here.
-#
-cmake_minimum_required (VERSION 3.20)
+﻿cmake_minimum_required (VERSION 3.20)
 
+# PROJECT NAME
 project ("FantasyEngineDX11")
 
-# Include sub-projects.
+# SETTING CMAKE OPTIONS
+set(CMAKE_CXX_STANDARD 20)
+
+# SETTING OUTPUT DIRECTORY
 add_subdirectory ("Source")

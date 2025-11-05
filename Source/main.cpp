@@ -1,12 +1,8 @@
-﻿// FantasyEngineDX11.cpp : Defines the entry point for the application.
-//
+﻿#include <iostream>
 
-#pragma once
-
-#include <iostream>
 
 int main()
 {
-	std::cout << "Hello CMake." << std::endl;
+	std::cout << " Hello World \n"; 
 	return 0;
 }
