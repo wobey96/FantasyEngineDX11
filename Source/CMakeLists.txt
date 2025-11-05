@@ -6,13 +6,27 @@ include("${CMAKE_SOURCE_DIR}/Scripts/FetchLibraries.cmake")
 # POPULATE 3RD PARTY LIBRARIES 
 FetchContent_MakeAvailable(glfw)
 
-# Add source to this project's executable.
+# CREATE EXECUTABLE
 file(GLOB_RECURSE SUBDIRECTORIES "${CMAKE_SOURCE_DIR}/Source/*.h" "${CMAKE_SOURCE_DIR}/Source/*.cpp")
 source_group("Source" "${CMAKE_SOURCE_DIR}/Source" ${SUBDIRECTORIES}) 
 add_executable ("Source" main.cpp ${SUBDIRECTORIES})
 
+# INCLUDE DIRECTORIES AND LINK LIBRARIES
 target_include_directories("Source" PRIVATE "${CMAKE_SOURCE_DIR}/Source")
 
 target_link_libraries("Source" PRIVATE glfw)
 
-# TODO: Add tests and install targets if needed.
+# DEBUG AND RELEASE FLAGS
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	target_compile_definitions("Source" PUBLIC ENGINE_DEBUG)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+	target_compile_definitions("Source" PUBLIC ENGINE_RELEASE)
+endif()
+
+# MACRO DEFINITIONS
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+	target_compile_definitions("Source" PUBLIC RUNETIME_API=__declspec\(dllexport\))
+	target_compile_definitions("Source" PUBLIC FORCEINLINE=__forceinline)
+else()
+	message(FATAL_ERROR "Unsupported Compiler")
+endif() 
