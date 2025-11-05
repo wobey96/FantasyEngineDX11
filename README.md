@@ -35,10 +35,10 @@ In Visual Studio, File -> New -> Project From Existing Code ...
 FantasyEngineDx11
 |-- Build              
 |-- Scripts
-	|-- FetchLibraries.cmake
+	 -- FetchLibraries.cmake
 |-- Source
-	|-- CMakeLists.txt
-	|-- main.cpp
+	 -- CMakeLists.txt
+	 -- main.cpp
  --CMakeLists.txt  
 ```
 
