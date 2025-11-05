@@ -25,7 +25,6 @@ In Visual Studio, File -> New -> Project From Existing Code ...
 
 ### Rendering 
 - Forward Renderer
--  
 
 ### Engine 
 - DirectX 11
