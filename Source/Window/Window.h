@@ -28,7 +28,7 @@ public:
 	WindowSize GetSize() const { return mSize; }
 
 private:
-	GLFWwindow* mWindow{nullptr};
-	WindowSize mSize{};
-	std::string mTitle{};
+	GLFWwindow* mWindow;
+	WindowSize mSize;
+	std::string mTitle;
 };
