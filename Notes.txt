@@ -1,2 +1,6 @@
 DirectX 11 & Rendering Engine Architecture notes 
 
+Section 1: Intro to Window Ceation
+- None really pretty straight forward I like the code quality
+
+Section 2: Intro to D3D Notes
