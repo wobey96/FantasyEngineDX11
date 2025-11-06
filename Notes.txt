@@ -13,3 +13,27 @@ Graphics API Generally Work:
 - Present the frame 
 - Move to the next frame 
 - Repeat the process
+
+Initial Components of D3D11
+- ID3D11Device: primary management interface to manage D3D assets
+- ID3D11DeviceContext: Primary command interface 
+- IDXGISwapChain: Primary Interface to present frames to screen 
+- ID3D11RenderTargetView: Represents a render target, aka our canvas to paint 
+- ID3DBlob: Data store unit. Holds the related data for shaders
+- ID3D11VertexShader: program that processes the verticies in the graphics pipeline 
+- ID3D11PixelShader: program that tprocesses pixels in the graphics pipeline
+- ID3D11Buffer: represents buffer resource, block of memory, various purposes (stor vertex, indext, or const data)
+- ID3D11Texture2D: represents a 2D texture resource, various purposes (store image data, render target)
+- ID3D11ShaderResourceView: Represents a view of a resource, allowing shaders to access the data in the resource. 
+							In the case of textures, used to bind textures to shaders 
+
+How to draw a mesh: 
+- Define Vertex Data - create structs to hold vertex data(positions, color, etc...)
+- Create Vertex Buffer - alloc memory and upload vertex data to a vertex buffer
+- Shader Setup - create vertex and pixel shader for processing vertices and coloring pixels
+- Set input layout - define format of the vertex data in the input assembler stage
+- create index buffer (Opotional) - if using indexed rendering, create index buffer for efficient storage and rendering 
+- Set Vertex and Index Buffer - bind the vertex and index buffers to the input assembler stage 
+- Set Shaders - bind vertex and pixel shaders to the pipeline 
+- Render - issue draw calls to render the mesh using the specific shaders and buffers
+- Present - Display the rendered frame on the screen 
