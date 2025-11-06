@@ -4,3 +4,12 @@ Section 1: Intro to Window Ceation
 - None really pretty straight forward I like the code quality
 
 Section 2: Intro to D3D Notes
+
+Graphics API Generally Work:
+- Give some definitions about a component to the API (definition like XXInfo in Vulkan)
+- Create related entitiy for it 
+- Help the API to send it to the GPU (Way more complicated in vulkan with synchronization stuff)
+- Draw the object to the frame 
+- Present the frame 
+- Move to the next frame 
+- Repeat the process
