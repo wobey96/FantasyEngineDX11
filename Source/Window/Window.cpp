@@ -14,12 +14,12 @@ void Window::Initialize()
 {
 	if (!glfwInit())
 	{
-		printf("Failed to initialize GLFW!\n");
+		printf("Failed to initialize GLFW! \n");
 		abort(); 
 	}
 	else
 	{
-		printf("GLFW initialized successfully!\n");
+		printf("GLFW initialized successfully! \n");
 	}
 
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -29,12 +29,12 @@ void Window::Initialize()
 
 	if (mWindow == nullptr)
 	{
-		printf("Failed to create window!\n");
+		printf("Failed to create window! \n");
 		abort(); 
 	}
 	else
 	{
-		printf("Window created successfully\n"); 
+		printf("Window created successfully! \n"); 
 	}
 
 }

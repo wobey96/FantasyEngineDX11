@@ -51,7 +51,9 @@ Here's a list of the libraries not included:
 - DirectX 11 
 
 ## References
-- Base code: [The Complete Course of Microsoft DirectX 2025](https://www.udemy.com/course/directx-course/?couponCode=MT251103G2)
+- "Real-Time 3D Rendering with DirectX and HLSL: A Practical Guide to Graphics Programming" by Paul Varcholik
+- "Real-Time Rendering" 4th ed. by Tomas Möller, Naty Hoffman, Eric Haines
+- Bare bones code: [The Complete Course of Microsoft DirectX 2025](https://www.udemy.com/course/directx-course/?couponCode=MT251103G2)
 
 ## Acknowledgements
 
