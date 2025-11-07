@@ -9,7 +9,7 @@ struct VertexData
 
 VertexData vertices[] =
 {
-	{ XMFLOAT3(-0.5f, -0.05, 0.0f) },
+	{ XMFLOAT3(-0.5f, -0.5, 0.0f) },
 	{ XMFLOAT3(0.0f, 0.5f, 0.0f) },
 	{ XMFLOAT3(0.5f, -0.5f, 0.0f) }
 };
