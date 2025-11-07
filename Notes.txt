@@ -37,3 +37,9 @@ How to draw a mesh:
 - Set Shaders - bind vertex and pixel shaders to the pipeline 
 - Render - issue draw calls to render the mesh using the specific shaders and buffers
 - Present - Display the rendered frame on the screen 
+
+Shader Notes:
+- drawing order in vertex shader (clockwise or counter clockwise)
+- viewport x, y (0,0 middle), x: -1, 1 y: -1, 1
+Vertex shader: SV_POSITION for synchronizing between cpu data and gpu data
+Pixel Shader: SV_TARGET specify target (render target)
