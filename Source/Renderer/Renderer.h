@@ -6,7 +6,6 @@
 using namespace DirectX; 
 
 #include <wrl.h>
-
 using namespace Microsoft::WRL;
 
 class Window; 
