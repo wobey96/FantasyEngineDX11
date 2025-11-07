@@ -11,7 +11,7 @@ struct vertexOut
 vertexOut main(vertexIn input)
 {
 	vertexOut output; 
-	output.position = float4(input.position, 1.0f); 
+	output.position = float4(input.position, 1.0); 
 
 	return output; 
 }
