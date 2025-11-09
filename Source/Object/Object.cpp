@@ -5,7 +5,21 @@
 
 Object::Object(std::vector<VertexData> pArrayVertexData, std::vector <uint32_t> indexData)
 {
-	mIndexCount = indexData.size();
+	mIndexCount = (uint32_t)indexData.size();
+
+	mWorldData =
+	{
+		.Position = {0.0f, 0.0f, 0.0f},
+		.Rotation = {0.0f, 0.0f, 0.0f},
+		.Scale = {1.0f, 1.0f, 1.0f}
+	};
+
+	mTransformData =
+	{
+		.World = XMMatrixIdentity(),
+		.view = XMMatrixIdentity(),
+		.Projection = XMMatrixIdentity()
+	};
 
 	D3D11_BUFFER_DESC vertexBufferDesc = {};
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -32,8 +46,22 @@ Object::Object(std::vector<VertexData> pArrayVertexData, std::vector <uint32_t> 
 	indexSubresourceData.pSysMem = indexData.data();
 	indexSubresourceData.SysMemPitch = 0;
 	indexSubresourceData.SysMemSlicePitch = 0;
+	
 
 	RenderManager::GetRenderer()->GetDevice()->CreateBuffer(&indexBufferDesc, &indexSubresourceData, mIndexBuffer.GetAddressOf());
+
+	D3D11_BUFFER_DESC constantBufferDesc = {};
+	constantBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	constantBufferDesc.ByteWidth = sizeof(TransformData);
+	constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER; 
+	constantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; 
+	constantBufferDesc.MiscFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA constantSubresourceData = {}; 
+	constantSubresourceData.pSysMem = &mTransformData; 
+
+	RenderManager::GetRenderer()->GetDevice()->CreateBuffer(&constantBufferDesc, &constantSubresourceData, mConstantBuffer.GetAddressOf()); 
+
 }
 
 
@@ -44,4 +72,23 @@ void Object::SetProps()
 
 	RenderManager::GetRenderer()->GetDeviceContext()->IASetVertexBuffers(0, 1, mVertexBuffer.GetAddressOf(), &stride, &offset);
 	RenderManager::GetRenderer()->GetDeviceContext()->IASetIndexBuffer(mIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+	RenderManager::GetRenderer()->GetDeviceContext()->VSSetConstantBuffers(0, 1, mConstantBuffer.GetAddressOf()); 
+	
+}
+
+void Object::updateMatrix(XMMATRIX view, XMMATRIX projection)
+{
+	mTransformData.World = XMMatrixTranspose(XMMatrixScaling(mWorldData.Scale.x, mWorldData.Scale.y, mWorldData.Scale.z) *
+		XMMatrixRotationRollPitchYaw(XMConvertToRadians(mWorldData.Rotation.x), XMConvertToRadians(mWorldData.Rotation.y),XMConvertToRadians(mWorldData.Rotation.z)) *
+		XMMatrixTranslation(mWorldData.Position.x, mWorldData.Position.y, mWorldData.Position.z));
+
+	mTransformData.view = XMMatrixTranspose(view); 
+	mTransformData.Projection = XMMatrixTranspose(projection); 
+
+	// MAP Data 
+	D3D11_MAPPED_SUBRESOURCE mappedSubresource = {};
+	RenderManager::GetRenderer()->GetDeviceContext()->Map(mConstantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedSubresource);
+
+	memcpy(mappedSubresource.pData, &mTransformData, sizeof(TransformData));
+	RenderManager::GetRenderer()->GetDeviceContext()->Unmap(mConstantBuffer.Get(), 0); 
 }

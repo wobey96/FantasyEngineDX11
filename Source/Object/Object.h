@@ -1,15 +1,8 @@
 #pragma once 
 
 #include <vector>
-
+#include <Object/DataStructures.h>
 #include "Renderer/RenderManager.h"
-
-
-struct VertexData
-{
-	XMFLOAT3 position;
-	XMFLOAT4 color;
-};
 
 class Object
 {
@@ -18,11 +11,17 @@ public:
 	~Object() = default; 
 
 	void SetProps(); 
-
+	void setWorldData(WorldData worldData) { mWorldData = worldData; }
+	void updateMatrix(XMMATRIX view, XMMATRIX projection); 
 	uint32_t GetIndexCount() const { return mIndexCount;  }
 
 private:
 	ComPtr<ID3D11Buffer> mVertexBuffer;
 	ComPtr<ID3D11Buffer> mIndexBuffer;
 	uint32_t mIndexCount; 
+
+	ComPtr<ID3D11Buffer> mConstantBuffer; 
+
+	WorldData mWorldData; 
+	TransformData mTransformData; 
 };

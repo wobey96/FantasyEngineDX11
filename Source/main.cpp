@@ -3,6 +3,7 @@
 #include "Window/Window.h"
 #include "Renderer/RenderManager.h"
 #include "Object/Object.h"
+#include "Object/Camera.h"
 
 
 std::vector<VertexData> vertices1 =
@@ -35,6 +36,7 @@ int main()
 
 	// BASIC RENDER INITIALIZATION
 	Renderer* basicRenderer = RenderManager::CreateRenderer(basicWindow);
+	Camera* basicCamera = new Camera({0.0f, 0.0f, -3.0f});
 
 	// BASIC TRIANGLE INITIALIZATION
 	Object* triangle = new Object(vertices1, indicies1); 
@@ -48,17 +50,20 @@ int main()
 	{
 		basicWindow->Run(); 
 		basicRenderer->ClearColor({ 0.5f, 0.2f, 0.6f, 1.0f });
+		basicCamera->ProcessTransformPosition(basicWindow->GetWindowHandler()); 
 		basicRenderer->SetPipeline();  
 
 		for (auto& object : objects)
 		{
 			object->SetProps(); 
+			object->updateMatrix(basicCamera->GetViewMatrix(), basicCamera->GetProjectionMatrix()); 
 			basicRenderer->Draw(object->GetIndexCount()); 
 		}
 
 		basicRenderer->Present(); 
 	}
 
+	delete basicCamera; 
 	delete basicWindow; 
 	delete basicRenderer; 
 	 
